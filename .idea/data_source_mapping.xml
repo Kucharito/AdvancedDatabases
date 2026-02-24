@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/a7888a88-20a3-4fb9-b533-ea77b23f6a07/console.sql" value="a7888a88-20a3-4fb9-b533-ea77b23f6a07" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc/1cviko.sql" value="9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc/1cvikoProcedure.sql" value="9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc/2cviko.sql" value="9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc/cviko2.2.sql" value="9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc/cviko2.3.sql" value="9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc/cviko2.4.sql" value="9a98ed9a-c70f-4f3c-a6e0-c0e28858a8dc" />
   </component>
 </project>
