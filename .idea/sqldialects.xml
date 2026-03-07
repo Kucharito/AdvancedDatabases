@@ -8,5 +8,7 @@
     <file url="file://$PROJECT_DIR$/2.4cviko.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/2cviko.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/3cviko.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/5cviko.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/oracle3cviko.sql" dialect="Oracle" />
   </component>
 </project>

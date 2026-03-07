@@ -43,21 +43,18 @@ where fname = 'Jana' and lname='Pokorná' and residence = 'Berlin';
 exec PrintPagesHeap 'Customer';
 
 
---
-SELECT top (100) *
-from OrderItem;
 
 --overenie  ze ide o heap scan
 SET SHOWPLAN_ALL ON;
-SELECT top (100) *
-from OrderItem
+select * from OrderItem
+where orderitem.unit_price between 1 and 300;
 SET SHOWPLAN_ALL OFF;
 
 --zistit pocet zaznamov vysledku dotazu
 select count(*)
 from(
-    select top (100) *
-    from OrderItem
+    select * from OrderItem
+    where orderitem.unit_price between 1 and 300
 )t;
 
 select count(*)
@@ -69,15 +66,15 @@ from OrderItem
 
 --textovy QEP a graficky vraj cez explain plan
 SET SHOWPLAN_TEXT ON;
-SELECT TOP(100)*
-FROM OrderItem
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 OPTION (MAXDOP 1);
 SET SHOWPLAN_TEXT OFF;
 
 -- zistit IO cost a porovnat s poctom blokov haldy
 SET STATISTICS IO ON;
-SELECT TOP(100)*
-FROM OrderItem
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 OPTION (MAXDOP 1);
 SET STATISTICS IO OFF;
 
@@ -85,36 +82,36 @@ EXEC PrintPagesHeap 'OrderItem';
 
 --zistit cas provedeni dotazu
 SET STATISTICS TIME ON;
-SELECT TOP (100) *
-FROM OrderItem
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 OPTION (MAXDOP 1);
 SET STATISTICS TIME OFF;
 
 -- ====================================================================
--- PARALLEL VERSION (MAXDOP 8) - Vynutene paralelne vykonavanie
+-- PARALLEL VERSION (MAXDOP 0) - Vynutene paralelne vykonavanie
 -- ====================================================================
 
 --textovy QEP a graficky vraj cez explain plan
 SET SHOWPLAN_TEXT ON;
-SELECT TOP(100)*
-FROM OrderItem
-OPTION (MAXDOP 8);
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
+OPTION (MAXDOP 0);
 SET SHOWPLAN_TEXT OFF;
 
 -- zistit IO cost a porovnat s poctom blokov haldy
 SET STATISTICS IO ON;
-SELECT TOP(100)*
-FROM OrderItem
-OPTION (MAXDOP 8);
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
+OPTION (MAXDOP 0);
 SET STATISTICS IO OFF;
 
 EXEC PrintPagesHeap 'OrderItem';
 
 --zistit cas provedeni dotazu
 SET STATISTICS TIME ON;
-SELECT TOP (100) *
-FROM OrderItem
-OPTION (MAXDOP 8);
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
+OPTION (MAXDOP 0);
 SET STATISTICS TIME OFF;
 
 -- ====================================================================
@@ -132,19 +129,17 @@ WHERE RowNum % 4 = 0;
 -- ====================================================================
 
 -- Dotaz na TOP 100 záznamov
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 
 -- Počet záznamov výsledku dotazu (TOP 100)
 SELECT COUNT(*) AS PocetZaznamovVysledku
 FROM (
-    SELECT TOP (100) *
-    FROM OrderItem
+        select * from OrderItem
+        where orderitem.unit_price between 1 and 300
 ) AS Vysledok;
 
--- ====================================================================
 -- Krok 3: Zistiť počet záznamov v tabulke a počet blokov haldy
--- ====================================================================
 
 -- Celkový počet záznamov v tabulke OrderItem
 SELECT COUNT(*) AS CelkovyPocetZaznamov
@@ -158,8 +153,8 @@ EXEC PrintPagesHeap 'OrderItem';
 -- ====================================================================
 
 SET STATISTICS IO ON;
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 SET STATISTICS IO OFF;
 
 -- ====================================================================
@@ -167,8 +162,8 @@ SET STATISTICS IO OFF;
 -- ====================================================================
 
 SET STATISTICS TIME ON;
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300;
 SET STATISTICS TIME OFF;
 
 -- ====================================================================
@@ -178,17 +173,12 @@ SET STATISTICS TIME OFF;
 SET STATISTICS IO ON;
 SET STATISTICS TIME ON;
 
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 
 SET STATISTICS TIME OFF;
 SET STATISTICS IO OFF;
 
--- ====================================================================
--- FYZICKÉ MAZANIE ZÁZNAMOV (Physical Delete)
--- ====================================================================
--- Po DELETE zostávajú v tabuľke prázdne bloky (fragmentácia)
--- Fyzické mazanie = odstránenie fragmentácie a uvoľnenie priestoru
 
 -- REBUILD haldy (odporúčané pre haldy)
 ALTER TABLE OrderItem REBUILD;
@@ -198,13 +188,14 @@ ALTER TABLE OrderItem REBUILD;
 -- ====================================================================
 
 -- Krok 1: Počet záznamov výsledku dotazu (TOP 100)
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 
 SELECT COUNT(*) AS PocetZaznamovVysledku_PoFyzickejDelete
 FROM (
-    SELECT TOP (100) *
-    FROM OrderItem
+    select * from OrderItem
+    where orderitem.unit_price between 1 and 300
+
 ) AS Vysledok;
 
 -- Krok 2: Celkový počet záznamov v tabulke
@@ -217,14 +208,14 @@ EXEC PrintPagesHeap 'OrderItem';
 
 -- Krok 4: IO cost PO fyzickom mazaní
 SET STATISTICS IO ON;
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 SET STATISTICS IO OFF;
 
 -- Krok 5: Čas vykonania PO fyzickom mazaní (CPU time, elapsed time)
 SET STATISTICS TIME ON;
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 SET STATISTICS TIME OFF;
 
 -- ====================================================================
@@ -234,8 +225,8 @@ SET STATISTICS TIME OFF;
 SET STATISTICS IO ON;
 SET STATISTICS TIME ON;
 
-SELECT TOP (100) *
-FROM OrderItem;
+select * from OrderItem
+where orderitem.unit_price between 1 and 300
 
 SET STATISTICS TIME OFF;
 SET STATISTICS IO OFF;
