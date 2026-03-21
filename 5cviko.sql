@@ -163,8 +163,8 @@ SET STATISTICS IO ON;
 
 SELECT lname, fname
 FROM Customer
-WHERE lname = 'Cooper'
-  AND fname = 'John'
+WHERE lname = 'Jones'
+  AND fname = 'Milan'
 OPTION (MAXDOP 1);
 
 SET STATISTICS TIME OFF;
@@ -174,8 +174,8 @@ SET SHOWPLAN_TEXT ON;
 
 SELECT lname, fname
 FROM Customer
-WHERE lname = 'Cooper'
-  AND fname = 'John'
+    WHERE lname = 'Jones'
+  AND fname = 'Milan'
 OPTION (MAXDOP 1);
 
 SET SHOWPLAN_TEXT OFF;
