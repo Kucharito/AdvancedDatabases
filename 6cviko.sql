@@ -156,18 +156,20 @@ set showplan_text off;
 --uloha 6
 set statistics time on;
 set statistics io on;
-SELECT lname, fname
+SELECT lname, fname, residence
 FROM Customer
 WHERE lname = 'Jones'
   AND fname = 'Milan'
+  and residence = 'Berlin';
 set statistics time off;
 set statistics io off;
 
 set showplan_text on;
-select lname, fname
-from Customer
-where lname = 'Jones'
-  and fname = 'Milan';
+SELECT lname, fname, residence
+FROM Customer
+WHERE lname = 'Jones'
+  AND fname = 'Milan'
+  and residence = 'Berlin';
 set showplan_text off;
 
 --pre clustered
@@ -191,41 +193,68 @@ where lname = 'Jones'
 CREATE INDEX customer_name_res
 ON Customer(lname, fname, residence);
 
+CREATE INDEX customer_name_res_ct
+ON Customer_Ct(lname, fname, residence);
+
     set statistics time on;
     set statistics io on;
-SELECT lname, fname
+SELECT *
 FROM Customer
 WHERE lname = 'Jones'
   AND fname = 'Milan'
+  and residence = 'Berlin';
     set statistics time off;
     set statistics io off;
 
     set showplan_text on;
-select lname, fname
-from Customer
-where lname = 'Jones'
-  and fname = 'Milan';
+SELECT *
+FROM Customer_Ct
+WHERE lname = 'Jones'
+  AND fname = 'Milan'
+  and residence = 'Berlin';
     set showplan_text off;
 
     -- pre haldu
-    set statistics time on;
-    set statistics io on;
-SELECT lname, fname
-FROM Customer
-WHERE lname = 'Jones'
-  AND fname = 'Milan'
-    set statistics time off;
-    set statistics io off;
-
-    set showplan_text on;
-select lname, fname
-from Customer
-where lname = 'Jones'
-  and fname = 'Milan';
-    set showplan_text off;
-
 
 --uloha 9
+-- uloha 9
+    drop index if exists customer_name_idc on Customer;
+go
 
+create index customer_name_idc
+    on Customer(lname, fname)
+    include (idc);
+go
 
+set statistics time on;
+set statistics io on;
 
+select idc
+from Customer
+WHERE lname = 'Jones'
+  AND fname = 'Milan'
+  and residence = 'Berlin';
+
+set statistics io off;
+set statistics time off;
+go
+
+set showplan_text on;
+go
+
+select idc
+from Customer_ct
+where lname = 'Jones'
+  and fname = 'Milan'
+    and residence = 'Berlin';
+
+go
+set showplan_text off;
+go
+
+-- to je pre vytvorenie tabulky a clustered index
+select * into customer_ct
+from Customer
+
+--
+create clustered index idx_customer_idc on customer_ct(idc);
